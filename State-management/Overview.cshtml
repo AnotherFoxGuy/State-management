@@ -1,0 +1,48 @@
+﻿@using WebMatrix.Data;
+@using RethinkDb.Driver;
+
+@{
+    Layout = "~/_Layout.cshtml";
+
+
+    if (!Request["status"].IsEmpty())
+    {
+        /*string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True";
+
+        string provider = "System.Data.SqlClient";
+
+        Database db = Database.OpenConnectionString(connectionString, provider);
+                     
+        var insertCommand = "INSERT INTO webshopdata (Data) VALUES(@0)";
+        db.Execute(insertCommand, dat);*/
+
+        Dictionary<string, string> dat = new Dictionary<string, string>() {
+                    { "username", (string)Session["username"]},
+                    { "password", (string)Session["password"]},
+                    { "product", (string)Session["product"]},
+                    { "street", (string)Session["street"]},
+                    { "nummer", (string)Session["nummer"]},
+                    { "plaats", (string)Session["plaats"]},
+            };
+        RethinkDB R = RethinkDB.R;
+        var c = R.Connection().Hostname("localhost").Port(RethinkDBConstants.DefaultPort).Timeout(60).Connect();
+        R.Db("webshopDB").Table("webshopdata").Insert(dat).Run(c);
+
+    }
+}
+
+
+@Html.Label((string) Session["username"])
+@Html.Label((string) Session["password"])
+@Html.Label((string) Session["product"])
+
+@Html.Label((string) Session["street"])
+@Html.Label((string) Session["nummer"])
+@Html.Label((string) Session["plaats"])
+
+@Html.Label(Request.RequestType)
+
+
+
+        <a href="~/Overview.cshtml?status=ok"> OK </a>
+        <a href="~/Overview.cshtml?status=cancel"> cancel </a>

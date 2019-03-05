@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+}
+
+<form data-abide novalidate method="post" action="~/AddAdress.cshtml">
+
+    @Html.Hidden("username", Request["username"])
+    @Html.Hidden("password", Request["password"])
+
+    <div class="cell medium-6">
+        <label>
+            European Cars, Choose One, it can't be the blank option.
+            <select name="product" id="select" required>
+                <option value=""></option>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+        </label>
+    </div>
+    <div class="grid-x grid-margin-x">
+        <fieldset class="cell medium-6">
+            <button class="button" type="submit" value="Submit">Submit</button>
+        </fieldset>
+        <fieldset class="cell medium-6">
+            <button class="button" type="reset" value="Reset">Reset</button>
+        </fieldset>
+    </div>
+</form>
+
+@Html.Label(Request["username"])
+@Html.Label(Request["password"])

@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+
+    if (IsPost && Request.UrlReferrer.AbsolutePath == Request.Url.AbsolutePath)
+    {
+
+        Session["username"] = Request["username"];
+        Session["password"] = Request["password"];
+        Session["product"] = Request["product"];
+
+        Session["street"] = Request["street"];
+        Session["nummer"] = Request["nummer"];
+        Session["plaats"] = Request["plaats"];
+
+        Response.Redirect("~/Overview.cshtml");
+    }
+
+
+}
+
+
+<form data-abide novalidate method="post">
+
+    @Html.Hidden("username", Request["username"])
+    @Html.Hidden("password", Request["password"])
+
+    @Html.Hidden("product", Request["product"])
+
+
+    <div class="cell small-12">
+        <label>
+            Street
+            <input name="street" type="text" placeholder="Login" aria-describedby="exampleHelpTex" data-abide-ignore>
+        </label>
+    </div>
+    <div class="cell small-12">
+        <label>
+            Nummber
+            <input name="nummer" type="text" placeholder="157" aria-describedby="exampleHelpTex" data-abide-ignore>
+        </label>
+    </div>
+    <div class="cell small-12">
+        <label>
+            Plaats
+            <input name="plaats" type="text" placeholder="Login" aria-describedby="exampleHelpTex" data-abide-ignore>
+        </label>
+    </div>
+
+    <div class="grid-x grid-margin-x">
+        <fieldset class="cell medium-6">
+            <button class="button" type="submit" value="Submit">Submit</button>
+        </fieldset>
+        <fieldset class="cell medium-6">
+            <button class="button" type="reset" value="Reset">Reset</button>
+        </fieldset>
+    </div>
+</form>
+
+
+@Html.Label(Request["username"])
+@Html.Label(Request["password"])
+@Html.Label(Request["product"])
